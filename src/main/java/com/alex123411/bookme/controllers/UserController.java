@@ -1,10 +1,11 @@
 package com.alex123411.bookme.controllers;
 
+import com.alex123411.bookme.entities.User;
 import com.alex123411.bookme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController()
+@RestController
 @RequestMapping("api/v1/user")
 public class UserController {
 
@@ -19,20 +20,23 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public String register(@RequestBody String name) {
-        return userService.registerUser(name);
+    @PostMapping
+    public User register(@RequestBody User user) {
+        return userService.registerUser(user);
     }
 
     @PostMapping("/login")
-    public String logIn() {
-
+    public String logIn(@RequestBody User user) {
+        System.out.println(user);
         return "logged in";
     }
 
-    @GetMapping("/")
-    public String getUser() {
-
-        return "user";
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable long id) {
+        return userService.getUserById(id);
     }
+
+
+
+
 }

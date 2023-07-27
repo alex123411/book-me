@@ -1,7 +1,12 @@
 package com.alex123411.bookme.repositories;
 
+import com.alex123411.bookme.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 }
