@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String register(@RequestBody User user) {
+    public User register(@RequestBody User user) {
         return userService.registerUser(user);
     }
 
@@ -32,7 +32,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable long id) {
-        return userService.getUserById(id).toString();
+    public User getUser(@PathVariable long id) {
+        return userService.getUserById(id);
     }
+
+
+
+
 }
