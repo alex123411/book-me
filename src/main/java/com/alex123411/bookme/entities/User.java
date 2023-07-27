@@ -12,7 +12,7 @@ public class User {
     private Long id;
     @Column(name="password")
     private String password;
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
     @Column(name="first_name")
     private String firstName;
@@ -20,6 +20,11 @@ public class User {
     private String lastName;
 
     public User() {
+    }
+
+    public User(String password, String email) {
+        this.password = password;
+        this.email = email;
     }
 
     public User(String password, String email, String firstName, String lastName) {
