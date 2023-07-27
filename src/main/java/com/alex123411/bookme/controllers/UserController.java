@@ -20,14 +20,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public String register(@RequestBody User user) {
         return userService.registerUser(user);
     }
 
     @PostMapping("/login")
-    public String logIn() {
-
+    public String logIn(@RequestBody User user) {
+        System.out.println(user);
         return "logged in";
     }
 
