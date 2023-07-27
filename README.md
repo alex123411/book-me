@@ -14,7 +14,7 @@ The Call Scheduler App is a user-friendly web application that allows users to e
 * Cancel and Reschedule: Users can cancel or reschedule calls directly through the app.
 * User-Friendly Interface: The app offers an intuitive and responsive interface for smooth user experience.
 
-## Tech Stack: 
+## Tech Stack 
 * Front-end: React, TypeScript
 * Back-end: Spring Boot, Java 17
 * Database: MySQL
