@@ -5,6 +5,8 @@ import com.alex123411.bookme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {
@@ -26,9 +28,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestBody User user) {
-        System.out.println(user);
-        return "logged in";
+    public User logIn(@RequestBody User user) {
+        return userService.logIn(user);
+    }
+
+    @GetMapping
+    public List<User> getAllUser(@RequestParam(required = false) Integer pageNum){
+        return userService.getAllUsers(pageNum);
     }
 
     @GetMapping("/{id}")
@@ -36,7 +42,9 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-
-
-
+    @PutMapping("/{id}")
+    public User updateUser(@RequestBody User user, @PathVariable long id){
+        System.out.printf(user.toString());
+        return userService.updateUser(id, user);
+    }
 }
