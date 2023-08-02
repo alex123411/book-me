@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -56,13 +57,13 @@ public class UserService {
         return userRepository.findAll(page).getContent();
     }
 
-    public User getUserById(long id) {
+    public User getUserById(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find User with id - " + id));
     }
 
     // PUT
-    public User updateUser(long id, User updatedUser) {
+    public User updateUser(UUID id, User updatedUser) {
         // Need JWT to validate if user changes his profile only using email
 
         User user = getUserById(id);
