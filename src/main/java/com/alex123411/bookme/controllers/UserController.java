@@ -24,16 +24,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public User register(@RequestBody User user) {
-        return userService.registerUser(user);
-    }
-
-    @PostMapping("/login")
-    public User logIn(@RequestBody User user) {
-        return userService.logIn(user);
-    }
-
     @GetMapping
     public List<User> getAllUser(@RequestParam(required = false) Integer pageNum){
         return userService.getAllUsers(pageNum);

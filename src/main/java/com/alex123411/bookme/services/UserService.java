@@ -23,31 +23,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerUser(User user) {
-        if (user.getEmail() == null || user.getPassword() == null)
-            throw new BadRequestException("Email or Password are empty, cannot register a user.");
-
-        if(user.getPassword().length() < 8)
-            throw new BadRequestException("Password is invalid. Make sure it is at least 14 characters.");
-
-        if(!EmailValidator.getInstance().isValid(user.getEmail()))
-            throw new BadRequestException("Email is invalid.");
-
-        userRepository.findByEmail(user.getEmail())
-                .ifPresent((val) -> {
-                    throw new BadRequestException("User with such Email already exists.");
-                });
-
-        return userRepository.save(user);
-    }
-
-    public User logIn(User user) {
-        // Returning JWT token in future
-
-        return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword())
-                .orElseThrow(() -> new NotFoundException("Email or Password are incorrect."));
-    }
-
     public List<User> getAllUsers(Integer pageNum){
         if(pageNum == null) pageNum = 0;
         int batchSize = 50;
