@@ -1,5 +1,6 @@
 package com.alex123411.bookme.configs;
 
+import com.alex123411.bookme.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,14 +36,14 @@ public class JwtService {
     }
 
     public String generateToken(
-            UserDetails userDetails
+            User userDetails
     ) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails
+            User userDetails
     ) {
         return Jwts
                 .builder()

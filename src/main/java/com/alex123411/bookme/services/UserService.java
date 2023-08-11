@@ -1,10 +1,13 @@
 package com.alex123411.bookme.services;
 
+import com.alex123411.bookme.configs.JwtService;
 import com.alex123411.bookme.entities.User;
 import com.alex123411.bookme.exceptions.BadRequestException;
 import com.alex123411.bookme.exceptions.NotFoundException;
 import com.alex123411.bookme.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,22 +17,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public List<User> getAllUsers(Integer pageNum){
-        if(pageNum == null) pageNum = 0;
+    public Page<User> getAllUsers(Integer pageNum) {
+        if (pageNum == null) pageNum = 0;
         int batchSize = 50;
 
         Pageable page = PageRequest.of(pageNum, batchSize);
 
-        return userRepository.findAll(page).getContent();
+        return userRepository.findAll(page);
     }
 
     public User getUserById(UUID id) {
@@ -48,6 +48,13 @@ public class UserService {
         updatedUser.setPassword(user.getPassword());
 
         return userRepository.save(updatedUser);
+    }
+
+    public User getAuthenticatedUser(String token) {
+        String jwt = token.substring(7);
+        String userEmail = jwtService.extractUsername(jwt);
+        return userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NotFoundException("Could not find User"));
     }
 
     // DELETE {id}

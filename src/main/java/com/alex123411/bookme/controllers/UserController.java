@@ -3,6 +3,7 @@ package com.alex123411.bookme.controllers;
 import com.alex123411.bookme.entities.User;
 import com.alex123411.bookme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUser(@RequestParam(required = false) Integer pageNum){
+    public User getAuthenticatedUser(@RequestHeader("Authorization") String token){
+        return userService.getAuthenticatedUser(token);
+    }
+
+    @GetMapping("/all")
+    public Page<User> getAllUser(@RequestParam(required = false) Integer pageNum){
         return userService.getAllUsers(pageNum);
     }
 
@@ -36,7 +42,9 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser(@RequestBody User user, @PathVariable UUID id){
-        System.out.printf(user.toString());
         return userService.updateUser(id, user);
     }
+
+
+
 }
