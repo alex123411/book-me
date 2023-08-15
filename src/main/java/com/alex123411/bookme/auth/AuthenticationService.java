@@ -6,6 +6,7 @@ import com.alex123411.bookme.entities.User;
 import com.alex123411.bookme.exceptions.BadRequestException;
 import com.alex123411.bookme.exceptions.NotFoundException;
 import com.alex123411.bookme.repositories.UserRepository;
+import com.alex123411.bookme.token.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.routines.EmailValidator;
