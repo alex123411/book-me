@@ -1,11 +1,15 @@
 package com.alex123411.bookme.auth;
 
 import com.alex123411.bookme.configs.JwtService;
-import com.alex123411.bookme.user.User;
 import com.alex123411.bookme.exceptions.BadRequestException;
-import com.alex123411.bookme.user.UserRepository;
+import com.alex123411.bookme.token.Token;
+import com.alex123411.bookme.token.TokenRepository;
 import com.alex123411.bookme.token.TokenType;
+import com.alex123411.bookme.user.User;
+import com.alex123411.bookme.user.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -22,11 +25,16 @@ import java.io.IOException;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
+
     private final PasswordEncoder passwordEncoder;
+
     private final JwtService jwtService;
+
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        validateRegisterRequest(request);
         var user = User.builder()
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
@@ -51,7 +59,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail())
+        var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -62,6 +70,7 @@ public class AuthenticationService {
                 .refreshToken(refreshToken)
                 .build();
     }
+
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -72,6 +81,7 @@ public class AuthenticationService {
                 .build();
         tokenRepository.save(token);
     }
+
     private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -82,6 +92,7 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
