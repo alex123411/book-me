@@ -1,11 +1,9 @@
 package com.alex123411.bookme.auth;
 
 import com.alex123411.bookme.configs.JwtService;
-import com.alex123411.bookme.entities.Role;
-import com.alex123411.bookme.entities.User;
+import com.alex123411.bookme.user.User;
 import com.alex123411.bookme.exceptions.BadRequestException;
-import com.alex123411.bookme.exceptions.NotFoundException;
-import com.alex123411.bookme.repositories.UserRepository;
+import com.alex123411.bookme.user.UserRepository;
 import com.alex123411.bookme.token.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +28,13 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
+                .firstName(request.getFirstname())
+                .lastName(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
-        var savedUser = repository.save(user);
+        var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);

@@ -1,6 +1,6 @@
 package com.alex123411.bookme.configs;
 
-import com.alex123411.bookme.entities.User;
+import com.alex123411.bookme.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

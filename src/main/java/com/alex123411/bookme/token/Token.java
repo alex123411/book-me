@@ -1,6 +1,6 @@
 package com.alex123411.bookme.token;
 
-import com.alex123411.bookme.entities.User;
+import com.alex123411.bookme.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

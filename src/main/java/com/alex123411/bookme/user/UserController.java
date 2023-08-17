@@ -1,7 +1,5 @@
-package com.alex123411.bookme.controllers;
+package com.alex123411.bookme.user;
 
-import com.alex123411.bookme.entities.User;
-import com.alex123411.bookme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

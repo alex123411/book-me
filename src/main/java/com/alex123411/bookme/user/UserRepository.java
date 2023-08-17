@@ -1,6 +1,6 @@
-package com.alex123411.bookme.repositories;
+package com.alex123411.bookme.user;
 
-import com.alex123411.bookme.entities.User;
+import com.alex123411.bookme.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

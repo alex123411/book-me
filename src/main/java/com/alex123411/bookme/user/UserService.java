@@ -1,19 +1,15 @@
-package com.alex123411.bookme.services;
+package com.alex123411.bookme.user;
 
 import com.alex123411.bookme.configs.JwtService;
-import com.alex123411.bookme.entities.User;
-import com.alex123411.bookme.exceptions.BadRequestException;
+import com.alex123411.bookme.user.User;
 import com.alex123411.bookme.exceptions.NotFoundException;
-import com.alex123411.bookme.repositories.UserRepository;
+import com.alex123411.bookme.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service

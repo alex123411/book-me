@@ -1,6 +1,6 @@
 package com.alex123411.bookme.configs;
 
-import com.alex123411.bookme.repositories.UserRepository;
+import com.alex123411.bookme.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,6 @@
-package com.alex123411.bookme.entities;
+package com.alex123411.bookme.user;
 
+import com.alex123411.bookme.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,18 +37,8 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public User(String password, String email) {
-        this.password = password;
-        this.email = email;
-    }
-
-    public User(String password, String email, String firstName, String lastName) {
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     @Override
     public String toString() {
@@ -63,6 +54,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
