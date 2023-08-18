@@ -34,7 +34,6 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        validateRegisterRequest(request);
         var user = User.builder()
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
