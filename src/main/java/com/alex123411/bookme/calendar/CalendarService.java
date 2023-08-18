@@ -1,14 +1,15 @@
 package com.alex123411.bookme.calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CalendarService {
 
-    @Autowired
-    private CalendarRepository calendarRepository;
+    private final CalendarRepository calendarRepository;
 
     public List<Calendar> getAllCalendars() {
         return calendarRepository.findAll();
@@ -18,6 +19,5 @@ public class CalendarService {
         return calendarRepository.save(calendar);
     }
 
-    // Other CRUD operations and business logic as needed
 }
 

@@ -1,15 +1,16 @@
 package com.alex123411.bookme.calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/calendars")
+@RequiredArgsConstructor
 public class CalendarController {
 
-    @Autowired
-    private CalendarService calendarService;
+    private final CalendarService calendarService;
 
     @GetMapping
     public List<Calendar> getAllCalendars() {
@@ -21,6 +22,5 @@ public class CalendarController {
         return calendarService.createCalendar(calendar);
     }
 
-    // Other CRUD endpoints and methods as needed
 }
 

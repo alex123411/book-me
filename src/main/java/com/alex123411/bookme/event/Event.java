@@ -2,9 +2,17 @@ package com.alex123411.bookme.event;
 
 import com.alex123411.bookme.calendar.Calendar;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "events")
 public class Event {
@@ -26,8 +34,5 @@ public class Event {
     @JoinColumn(name = "calendar_id", nullable = false)
     private Calendar calendar;
 
-    // Constructors, getters, setters, and other methods
-
-    // ...
 }
 
