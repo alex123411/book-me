@@ -22,6 +22,5 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
-    // Other CRUD endpoints and methods as needed
 }
 

@@ -19,6 +19,5 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    // Other CRUD operations and business logic as needed
 }
 
